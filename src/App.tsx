@@ -1,7 +1,12 @@
 import "./App.css";
+import ChatList from "./components/ChatList/ChatList";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <ChatList />
+    </>
+  );
 }
 
 export default App;
