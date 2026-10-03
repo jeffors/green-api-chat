@@ -28,6 +28,7 @@ export default function LoginForm() {
   return (
     <div className={styles.background}>
       <div className={styles.content}>
+        <h2 className={styles.heading}>Напишите данные вашего инстанса</h2>
         <form className={styles.form} onSubmit={handleSubmit}>
           <input
             className={styles.input}

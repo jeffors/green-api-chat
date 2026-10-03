@@ -1,22 +1,14 @@
+import ArrowUpIcon from "../icons/ArrowUpIcon";
+import BackArrow from "../icons/BackArrow";
+import DoubleCheckIcon from "../icons/DoubleCheckIcon";
 import styles from "./ChatContent.module.css";
+
 export default function ChatContent() {
   return (
     <div className={styles.background}>
       <div className={styles.header}>
         <button className={styles.back_button}>
-          <svg
-            width="24px"
-            height="24px"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
+          <BackArrow size={24} />
         </button>
         <div className={styles.header_chat}>
           <div className={styles.avatar}></div>
@@ -50,20 +42,7 @@ export default function ChatContent() {
             ОКАК
             <div className={styles.time}>
               18:42
-              <svg
-                width={14}
-                height={14 * 0.75}
-                viewBox="0 0 24 18"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M1 9.5l5 5L16 3" />
-                <path d="M10 13.5l1 1L22 3" />
-              </svg>
+              <DoubleCheckIcon size={14} />
             </div>
           </div>
         </div>
@@ -71,19 +50,7 @@ export default function ChatContent() {
       <div className={styles.footer}>
         <input className={styles.input} type="text" placeholder="Сообщение" />
         <button className={styles.send_button}>
-          <svg
-            width="24px"
-            height="24px"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M12 19V5M5 12l7-7 7 7" />
-          </svg>
+          <ArrowUpIcon size={24} />
         </button>
       </div>
     </div>
