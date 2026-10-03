@@ -1,0 +1,75 @@
+.background {
+  background: linear-gradient(160deg, #7b9fd4, #a0acc4);
+  width: 100%;
+  position: relative;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+}
+
+.background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/public/floating-cogs.svg") repeat;
+  opacity: 0.15;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.content {
+  background: white;
+  width: 580px;
+  height: 696px;
+  box-shadow: 0 4px 24px #00000014;
+  border-radius: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  width: 100%;
+  border: none;
+  padding: 6px 12px;
+
+  background-color: #0909090d;
+  color: black;
+  border-radius: 12px;
+  margin-block-end: 8px;
+}
+
+.error {
+  color: red;
+}
+
+.button {
+  color: white;
+  background-color: #007affff;
+  padding: 18px 22px;
+  height: 60px;
+  width: 100%;
+  border-radius: 20px;
+  border: none;
+}
+
+.button:hover {
+  background-color: #479fffff;
+}
+
+.button:active {
+  background-color: #006ee5ff;
+}
+
+.button:disabled {
+  background-color: #007aff7a;
+}

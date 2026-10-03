@@ -28,7 +28,7 @@ export default function ChatContent() {
       </div>
       <div className={styles.messages}>
         <div className={styles.list}>
-          <p className={styles.bubble}>
+          <div className={styles.bubble}>
             На краю дороги стоял дуб. Вероятно, в десять раз старше берёз,
             составлявших лес, он был в десять раз толще и в два раза выше каждой
             берёзы. Это был огромный, в два обхвата, дуб, с обломанными, давно
@@ -45,8 +45,8 @@ export default function ChatContent() {
             из боков; как выросли — так и стою, и не верю вашим надеждам и
             обманам
             <div className={styles.time}>18:41</div>
-          </p>
-          <p className={`${styles.bubble} ${styles.bubble_own}`}>
+          </div>
+          <div className={`${styles.bubble} ${styles.bubble_own}`}>
             ОКАК
             <div className={styles.time}>
               18:42
@@ -65,7 +65,7 @@ export default function ChatContent() {
                 <path d="M10 13.5l1 1L22 3" />
               </svg>
             </div>
-          </p>
+          </div>
         </div>
       </div>
       <div className={styles.footer}>
