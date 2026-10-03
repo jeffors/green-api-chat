@@ -144,3 +144,15 @@
   border-radius: 100%;
   flex-shrink: 0;
 }
+
+.send_button:hover {
+  background-color: #479fff;
+}
+
+.send_button:active {
+  background-color: #006ee5;
+}
+
+.send_button:disabled {
+  background-color: #007aff7a;
+}

@@ -1,9 +1,22 @@
+import { useState } from "react";
+import { sendMessage } from "../../api/greenApi";
+import { useAuth } from "../../auth/useAuth";
 import ArrowUpIcon from "../icons/ArrowUpIcon";
 import BackArrow from "../icons/BackArrow";
 import DoubleCheckIcon from "../icons/DoubleCheckIcon";
 import styles from "./ChatContent.module.css";
 
 export default function ChatContent() {
+  const { instance } = useAuth();
+  const [message, setMessage] = useState<string>("");
+
+  const handleSend = () => {
+    if (instance) {
+      sendMessage(instance, "phone", message);
+      setMessage("");
+    }
+  };
+
   return (
     <div className={styles.background}>
       <div className={styles.header}>
@@ -48,8 +61,18 @@ export default function ChatContent() {
         </div>
       </div>
       <div className={styles.footer}>
-        <input className={styles.input} type="text" placeholder="Сообщение" />
-        <button className={styles.send_button}>
+        <input
+          className={styles.input}
+          type="text"
+          placeholder="Сообщение"
+          onChange={(e) => setMessage(e.target.value)}
+          value={message}
+        />
+        <button
+          disabled={!message}
+          className={styles.send_button}
+          onClick={handleSend}
+        >
           <ArrowUpIcon size={24} />
         </button>
       </div>
