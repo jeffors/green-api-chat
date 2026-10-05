@@ -6,6 +6,7 @@ import { useAuth } from "../../auth/useAuth";
 export default function LoginForm() {
   const [idInstance, setIdInstance] = useState<string>("");
   const [apiTokenInstance, setApiTokenInstance] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { login } = useAuth();
@@ -42,6 +43,13 @@ export default function LoginForm() {
             type="password"
             placeholder="apiTokenInstance"
           />
+          {/* <input
+            className={styles.input}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            type="text"
+            placeholder="Номер телефона"
+            value={phoneNumber}
+          /> */}
           {error && <p className={styles.error}>{error}</p>}
           <button
             disabled={isLoading || !idInstance || !apiTokenInstance}

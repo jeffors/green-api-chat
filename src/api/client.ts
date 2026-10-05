@@ -44,5 +44,7 @@ export async function request<T>(
   if (!response.ok) {
     throw new ApiError(`Ошибка запроса: ${response.status}`, response.status);
   }
-  return response.json() as Promise<T>;
+
+  const text = await response.text();
+  return (text ? JSON.parse(text) : null) as T;
 }
