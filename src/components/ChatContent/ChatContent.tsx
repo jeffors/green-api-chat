@@ -4,11 +4,11 @@ import {
   recieveNotification,
   sendMessage,
 } from "../../api/greenApi";
-import { useAuth } from "../../auth/useAuth";
 import ArrowUpIcon from "../icons/ArrowUpIcon";
 import BackArrow from "../icons/BackArrow";
 import DoubleCheckIcon from "../icons/DoubleCheckIcon";
 import styles from "./ChatContent.module.css";
+import type { Instance } from "../../api/client";
 
 interface Message {
   id: string | number;
@@ -29,8 +29,7 @@ const INITIAL_MESSAGES: Message[] = [
   },
 ];
 
-export default function ChatContent() {
-  const { instance } = useAuth();
+export default function ChatContent({ instance }: { instance: Instance }) {
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [text, setText] = useState<string>("");
 

@@ -1,15 +1,10 @@
 import { useState } from "react";
 import styles from "./LoginForm.module.css";
-import { checkStateInstance } from "../../api/greenApi";
+import { checkAccount } from "../../api/greenApi";
 import type { Instance } from "../../api/client";
 
-export default function LoginForm({
-  setInstance,
-}: {
-  setInstance: (instance: Instance) => void;
-}) {
-  const [idInstance, setIdInstance] = useState<string>("");
-  const [apiTokenInstance, setApiTokenInstance] = useState<string>("");
+export default function PhoneForm({ instance }: { instance: Instance }) {
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,10 +14,11 @@ export default function LoginForm({
     setIsLoading(true);
     setError(null);
     try {
-      await checkStateInstance({ idInstance, apiTokenInstance });
-      setInstance({ idInstance, apiTokenInstance });
+      if (instance) {
+        checkAccount(instance, phoneNumber);
+      }
     } catch {
-      setError("Не удалось войти. Проверьте данные инстанса.");
+      setError("Не этом номере телфона не найден аккаунт Max.");
     } finally {
       setIsLoading(false);
     }
@@ -35,19 +31,14 @@ export default function LoginForm({
         <form className={styles.form} onSubmit={handleSubmit}>
           <input
             className={styles.input}
-            onChange={(e) => setIdInstance(e.target.value)}
-            inputMode="numeric"
-            placeholder="idInstance"
-          />
-          <input
-            className={styles.input}
-            onChange={(e) => setApiTokenInstance(e.target.value)}
-            type="password"
-            placeholder="apiTokenInstance"
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            type="text"
+            placeholder="Номер телефона"
+            value={phoneNumber}
           />
           {error && <p className={styles.error}>{error}</p>}
           <button
-            disabled={isLoading || !idInstance || !apiTokenInstance}
+            disabled={isLoading || !phoneNumber}
             className={styles.button}
           >
             {isLoading ? "Вход..." : "Войти"}

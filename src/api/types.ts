@@ -31,3 +31,9 @@ export type Notification = {
     };
   };
 };
+
+export type CheckAccount = {
+  exist: boolean;
+  chatId: string;
+  fromCache: boolean;
+};

@@ -1,18 +1,18 @@
 import "./App.css";
 import ChatContent from "./components/ChatContent/ChatContent";
-import ChatList from "./components/ChatList/ChatList";
 import LoginForm from "./components/LoginForm/LoginForm";
-import { useAuth } from "./auth/useAuth";
+import { useState } from "react";
+import type { Instance } from "./api/client";
 
 function App() {
-  const { instance } = useAuth();
+  const [instance, setInstance] = useState<Instance | null>(null);
+  const [chatId, setChatId] = useState<string | null>(null);
 
-  if (!instance) return <LoginForm />;
+  if (!instance) return <LoginForm setInstance={setInstance} />;
 
   return (
     <div className="app">
-      <ChatList />
-      <ChatContent />
+      <ChatContent instance={instance} />
     </div>
   );
 }
