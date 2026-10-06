@@ -37,3 +37,14 @@ export type CheckAccount = {
   chatId: string;
   fromCache: boolean;
 };
+
+export type ContactInfo = {
+  avatar: string;
+  name: string;
+  contactName: string;
+  chatId: string;
+  chatType: string;
+  lastSeen: number;
+  phoneNumber: number;
+  phoneNumberTimestamp: number;
+};

@@ -50,6 +50,9 @@
 .header_chat {
   display: flex;
   gap: 16px;
+  width: 760px;
+  margin: 0 auto;
+  justify-content: flex-start;
 }
 
 .avatar {
@@ -57,6 +60,19 @@
   height: 40px;
   background: #007aff;
   border-radius: 100%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar_picture {
+  border-radius: 100%;
+}
+
+.info {
+  display: flex;
+  align-items: center;
 }
 
 .header_chat_title {

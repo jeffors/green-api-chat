@@ -32,6 +32,11 @@
   align-items: center;
   flex-direction: column;
   gap: 24px;
+  position: relative;
+}
+
+.heading {
+  text-align: center;
 }
 
 .form {
@@ -76,4 +81,26 @@
 
 .button:disabled {
   background-color: #007aff7a;
+}
+
+.back_button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: none;
+  background-color: transparent;
+}
+
+.back_button:hover {
+  background-color: #0d0d0d0a;
+}
+
+.back_button:active {
+  background-color: #0d0d0d14;
 }

@@ -34,6 +34,10 @@
   gap: 24px;
 }
 
+.heading {
+  text-align: center;
+}
+
 .form {
   display: flex;
   flex-direction: column;

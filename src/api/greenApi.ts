@@ -1,5 +1,10 @@
 import { request, type Instance } from "./client";
-import type { SendMessageResponse, Notification, CheckAccount } from "./types";
+import {
+  type SendMessageResponse,
+  type Notification,
+  type CheckAccount,
+  type ContactInfo,
+} from "./types";
 
 export const checkStateInstance = (instance: Instance) =>
   request<{ stateInstance: string }>(instance, "getStateInstance");
@@ -23,9 +28,14 @@ export const deleteNotification = (instance: Instance, receiptId: number) =>
     pathSuffix: `/${receiptId}`,
   });
 
-export const checkAccount = (instance: Instance, phoneNumber: string) => {
+export const checkAccount = (instance: Instance, phoneNumber: string) =>
   request<CheckAccount>(instance, "checkAccount", {
     httpMethod: "POST",
     body: { phoneNumber },
   });
-};
+
+export const getContactAccount = (instance: Instance, chatId: string) =>
+  request<ContactInfo>(instance, "getContactInfo", {
+    httpMethod: "POST",
+    body: { chatId },
+  });

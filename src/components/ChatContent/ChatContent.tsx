@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import {
   deleteNotification,
+  getContactAccount,
   recieveNotification,
   sendMessage,
 } from "../../api/greenApi";
 import ArrowUpIcon from "../icons/ArrowUpIcon";
 import BackArrow from "../icons/BackArrow";
-import DoubleCheckIcon from "../icons/DoubleCheckIcon";
 import styles from "./ChatContent.module.css";
 import type { Instance } from "../../api/client";
+import { UserIcon } from "../icons/UserIcon";
 
 interface Message {
   id: string | number;
@@ -16,22 +17,19 @@ interface Message {
   isOwn: boolean;
 }
 
-const INITIAL_MESSAGES: Message[] = [
-  {
-    id: 1,
-    message: "На краю дороги стоял дуб...",
-    isOwn: false,
-  },
-  {
-    id: 2,
-    message: "ОКАК",
-    isOwn: true,
-  },
-];
-
-export default function ChatContent({ instance }: { instance: Instance }) {
-  const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
+export default function ChatContent({
+  instance,
+  chatId,
+  setChatId,
+}: {
+  instance: Instance;
+  chatId: string;
+  setChatId: (chatId: string) => void;
+}) {
+  const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState<string>("");
+  const [contactName, setContactName] = useState<string>("");
+  const [avatar, setAvatar] = useState<string>("");
 
   const handleSend = async (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -41,7 +39,7 @@ export default function ChatContent({ instance }: { instance: Instance }) {
     setText("");
 
     try {
-      const response = await sendMessage(instance, "phone", currentText);
+      const response = await sendMessage(instance, chatId, currentText);
       setMessages((prev) => [
         ...prev,
         {
@@ -61,14 +59,26 @@ export default function ChatContent({ instance }: { instance: Instance }) {
     let isMounted = true;
     let timerId: ReturnType<typeof setTimeout>;
 
+    const getContactInfo = async () => {
+      try {
+        const { avatar, name } = await getContactAccount(instance, chatId);
+        setAvatar(avatar);
+        setContactName(name);
+      } catch (e) {
+        console.error("Ошибка при получении контактной информации:", e);
+      }
+    };
+
     const pollNotifications = async () => {
       try {
         const notification = await recieveNotification(instance);
 
         if (notification && isMounted) {
           const { receiptId, body } = notification;
+          const notificationChatId = body.senderData?.chatId;
 
           if (
+            notificationChatId === chatId &&
             (body.typeWebhook === "incomingMessageReceived" ||
               body.typeWebhook === "outgoingMessageReceived") &&
             body.messageData?.typeMessage === "textMessage"
@@ -103,25 +113,37 @@ export default function ChatContent({ instance }: { instance: Instance }) {
       }
     };
 
+    getContactInfo();
     pollNotifications();
 
     return () => {
       isMounted = false;
       clearTimeout(timerId);
     };
-  }, [instance]);
+  }, [instance, chatId]);
 
   return (
     <div className={styles.background}>
       <div className={styles.header}>
-        <button className={styles.back_button}>
-          <BackArrow size={24} />
-        </button>
         <div className={styles.header_chat}>
-          <div className={styles.avatar}></div>
-          <div className={styles.content}>
-            <h3 className={styles.header_chat_title}>Чат 1</h3>
-            <p className={styles.header_chat_description}>2 ч назад</p>
+          <button className={styles.back_button} onClick={() => setChatId("")}>
+            <BackArrow size={24} />
+          </button>
+          <div className={styles.avatar}>
+            {avatar ? (
+              <img
+                src={avatar}
+                alt="Аватарка пользователя"
+                className={styles.avatar_picture}
+              />
+            ) : (
+              <UserIcon />
+            )}
+          </div>
+          <div className={styles.info}>
+            <h3 className={styles.header_chat_title}>
+              {contactName ? contactName : "Чат с пользователем"}
+            </h3>
           </div>
         </div>
       </div>
@@ -134,10 +156,6 @@ export default function ChatContent({ instance }: { instance: Instance }) {
               key={msg.id}
             >
               {msg.message}
-              <div className={styles.time}>
-                18:42
-                {msg.isOwn && <DoubleCheckIcon size={14} />}
-              </div>
             </div>
           ))}
         </div>
